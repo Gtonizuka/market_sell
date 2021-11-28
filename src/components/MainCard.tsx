@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import InputBalance from '../ui-components/InputBalance';
+import InputCollateral from '../ui-components/InputCollateral';
 
 import ToolTip from '../ui-components/Tooltip';
 import { InputTitle, InputWithTooltip, SectionTitle, TitleWithTooltip } from './styles';
@@ -92,6 +93,7 @@ const MainCard: React.FC = () => {
             </TabsArea>
             <div style={{ padding: '18px 16px' }}>
                 <InputBalance />
+                <InputCollateral />
             </div>
         </Card>
     );

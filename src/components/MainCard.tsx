@@ -5,6 +5,7 @@ import InputBalance from '../ui-components/InputBalance';
 import InputCollateral from '../ui-components/InputCollateral';
 import InputSpot from '../ui-components/InputSpot';
 import OutputBox from '../ui-components/OutputBox';
+import TimeLineComponent from './Timeline';
 
 const Card = styled.div`
     box-shadow: 0px 4px 10px rgba(222, 222, 222, 0.5);
@@ -28,8 +29,7 @@ const Tab = styled.button`
     width: 50%;
 
     &.inactive {
-        background: #DCDAE9;
-        opacity: 0.2;   
+        background: rgba(220, 218, 233, .2);
         border-left: 1px solid #292535;
         border-bottom: 1px solid #292535;
     }
@@ -49,6 +49,7 @@ const MainCard: React.FC = () => {
                 <CollateralArea />
                 <OutputBox text={'Liquidation price'} amount={'146.79'} isTilde={true} />
                 <OutputBox text={'Collateral'} amount={'100.00'} />
+                <TimeLineComponent step={1} />
             </div>
         </Card>
     );

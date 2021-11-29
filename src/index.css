@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Avenir;
+    src: url(assets/fonts/avenir.otf);
+  }
+
 html {
     font-size: 62.5%; /* font-size 1em = 10px on default browser settings */
 }
@@ -11,6 +16,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #292535;
+  font-family: Avenir;
 }
 
 code {
@@ -34,4 +40,5 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
-}           
+}          
+ 

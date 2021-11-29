@@ -7,7 +7,8 @@ interface Props {
 }
 
 const Box = styled.div`
-    background: #DCDAE9;
+    background: rgba(220, 218, 233, .3);
+    border-radius: 4px;
     color: #77757E;
     font-size: 1.6rem;
     padding: 9px 12px;

@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import ToolTip from '../ui-components/Tooltip';
 import { InputTitle, InputWithTooltip } from '../components/styles';
 import MinusIcon from '../assets/svg-icons/MinusBtn';
 import PlusIcon from '../assets/svg-icons/PlusBtn';
+import { ContractContext } from '../context/ContractContext';
 
 const InputWrap = styled.div`
     border: 1px solid #DCDAE9;
@@ -56,7 +57,7 @@ const PlusBtn = styled(MinusBtn)`
 
 const InputSpot: React.FC = () => {
 
-    const [amount, setAmount] = useState('25')
+    const { spotChange, setSpotChange } = useContext(ContractContext);
 
     const handleBlur = (el: any) => {
         const { value } = el.target;
@@ -64,25 +65,31 @@ const InputSpot: React.FC = () => {
         const format = Number(value);
 
         if (format > 100 || format < 0) {
-            setAmount('100')
+            if (setSpotChange) {
+                setSpotChange('100')
+            }
             return;
         }
-        setAmount(value);
+        if (setSpotChange) { setSpotChange(value) };
     }
 
     const handleSubtract: () => void = () => {
-        const amountToNr: number = Number(amount);
+        const amountToNr: number = Number(spotChange);
         if (amountToNr > 0) {
             const val = amountToNr - 1;
-            setAmount(val.toString());
+            if (setSpotChange) {
+                setSpotChange(val.toString());
+            }
         }
     }
 
     const handleSum: () => void = () => {
-        const amountToNr: number = Number(amount);
+        const amountToNr: number = Number(spotChange);
         if (amountToNr < 100) {
             const val = amountToNr + 1;
-            setAmount(val.toString());
+            if (setSpotChange) {
+                setSpotChange(val.toString());
+            }
         }
     }
 
@@ -99,7 +106,7 @@ const InputSpot: React.FC = () => {
                         <MinusBtn onClick={handleSubtract}><MinusIcon /></MinusBtn>
                         <PlusBtn onClick={handleSum}><PlusIcon /></PlusBtn>
                     </ButtonsArea>
-                    <InputEl type="number" min="0" max="100" value={amount} onChange={(el) => setAmount(el.target.value)} onBlur={handleBlur} />
+                    <InputEl type="number" min="0" max="100" value={spotChange} onChange={(el) => setSpotChange ? setSpotChange(el.target.value) : null} onBlur={handleBlur} />
                     <SpanLg>%</SpanLg>
                 </div>
             </InputWrap>

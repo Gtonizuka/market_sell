@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import ToolTip from '../ui-components/Tooltip';
 import { InputTitle, InputWithTooltip } from '../components/styles';
+import { ContractContext } from '../context/ContractContext';
 
 const InputWrap = styled.div`
     border: 1px solid #DCDAE9;
@@ -52,10 +53,12 @@ const SmallBtn = styled.button`
 
 const InputBalance: React.FC = () => {
 
-    const [amount, setAmount] = useState('100.00')
+    const { balance } = useContext(ContractContext);
+
+    const [amount, setAmount] = useState('100');
 
     const handleClick: () => void = () => {
-        setAmount('21.042');
+        setAmount(balance);
     }
 
     return (
@@ -66,7 +69,7 @@ const InputBalance: React.FC = () => {
                 </InputTitle> <ToolTip text={'Generic tooltip text'} />
             </InputWithTooltip>
             <InputWrap>
-                <GrayedArea> oToken Balance: <span style={{ fontSize: 12, fontWeight: 800, float: 'right' }}>21.042</span> </GrayedArea>
+                <GrayedArea> oToken Balance: <span style={{ fontSize: 12, fontWeight: 800, float: 'right' }}>{balance}</span> </GrayedArea>
                 <InputEl type="number" min="0" value={amount} onChange={(el) => setAmount(el.target.value)} />
                 <ActionArea>
                     <SmallBtn onClick={handleClick}>max</SmallBtn>

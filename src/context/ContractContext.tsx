@@ -10,7 +10,7 @@ interface IContractContext {
 }
 
 const defaultState = {
-    balance: '21042',
+    balance: '21.042',
     collRatio: '25',
     spotChange: '25'
 };

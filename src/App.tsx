@@ -1,11 +1,14 @@
 import React from 'react';
 
 import OrderCard from './components/OrderCard';
+import { ContractProvider } from './context/ContractContext';
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <OrderCard />
+        <div>
+            <ContractProvider>
+                <OrderCard />
+            </ContractProvider>
         </div>
     );
 }

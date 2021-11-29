@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+import CollateralArea from '../ui-components/CollateralArea';
 import InputBalance from '../ui-components/InputBalance';
 import InputCollateral from '../ui-components/InputCollateral';
+import InputSpot from '../ui-components/InputSpot';
 
 const Card = styled.div`
     box-shadow: 0px 4px 10px rgba(222, 222, 222, 0.5);
@@ -42,6 +44,8 @@ const MainCard: React.FC = () => {
             <div style={{ padding: '18px 16px' }}>
                 <InputBalance />
                 <InputCollateral />
+                <InputSpot />
+                <CollateralArea />
             </div>
         </Card>
     );

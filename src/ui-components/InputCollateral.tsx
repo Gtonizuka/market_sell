@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import ToolTip from '../ui-components/Tooltip';
 import { InputTitle, InputWithTooltip } from '../components/styles';
+import { ContractContext } from '../context/ContractContext';
 
 const InputWrap = styled.div`
     border: 1px solid #DCDAE9;
@@ -33,7 +34,7 @@ const SpanLg = styled.span`
 
 const InputCollateral: React.FC = () => {
 
-    const [amount, setAmount] = useState('25')
+    const { collRatio, setCollRatio } = useContext(ContractContext);
 
     const handleBlur = (el: any) => {
         const { value } = el.target;
@@ -41,10 +42,14 @@ const InputCollateral: React.FC = () => {
         const format = Number(value);
 
         if (format > 100 || format < 0) {
-            setAmount('100')
+            if (setCollRatio) {
+                setCollRatio('100');
+            }
             return;
         }
-        setAmount(value);
+        if (setCollRatio) {
+            setCollRatio(value);
+        }
     }
 
     return (
@@ -56,7 +61,7 @@ const InputCollateral: React.FC = () => {
             </InputWithTooltip>
             <InputWrap>
                 <div style={{ display: 'flex' }}>
-                    <InputEl type="number" min="0" max="100" value={amount} onChange={(el) => setAmount(el.target.value)} onBlur={handleBlur} />
+                    <InputEl type="number" min="0" max="100" value={collRatio} onChange={(el) => setCollRatio ? setCollRatio(el.target.value) : null} onBlur={handleBlur} />
                     <SpanLg>%</SpanLg>
                 </div>
             </InputWrap>

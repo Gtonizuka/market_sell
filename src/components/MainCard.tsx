@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import CollateralArea from '../ui-components/CollateralArea';
@@ -5,7 +6,9 @@ import InputBalance from '../ui-components/InputBalance';
 import InputCollateral from '../ui-components/InputCollateral';
 import InputSpot from '../ui-components/InputSpot';
 import OutputBox from '../ui-components/OutputBox';
+import FormButton from './FormButton';
 import TimeLineComponent from './Timeline';
+import TxSummary from './TxSummary';
 
 const Card = styled.div`
     box-shadow: 0px 4px 10px rgba(222, 222, 222, 0.5);
@@ -36,6 +39,9 @@ const Tab = styled.button`
 `
 
 const MainCard: React.FC = () => {
+
+    const [step, setStep] = useState(0);
+
     return (
         <Card>
             <TabsArea>
@@ -49,8 +55,10 @@ const MainCard: React.FC = () => {
                 <CollateralArea />
                 <OutputBox text={'Liquidation price'} amount={'146.79'} isTilde={true} />
                 <OutputBox text={'Collateral'} amount={'100.00'} />
-                <TimeLineComponent step={1} />
+                <TimeLineComponent step={step} />
+                <TxSummary />
             </div>
+            <FormButton step={step} />
         </Card>
     );
 }

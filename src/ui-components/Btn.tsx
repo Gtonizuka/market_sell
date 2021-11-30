@@ -44,6 +44,17 @@ const ButtonEl = styled.button`
         color: #fff;
     }
 
+    &.orange-bg {
+        background: #CD6116;
+        border: #CD6116;
+        color: #fff;
+    }
+
+    &.form-btn {
+        padding: 12px 0;
+        width: 100%;
+    }
+
 `
 
 const BtnMain: React.FC<Props> = (props) => {

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { ContractContext } from '../context/ContractContext';
 
 import CollateralArea from '../ui-components/CollateralArea';
 import InputBalance from '../ui-components/InputBalance';
@@ -39,8 +40,26 @@ const Tab = styled.button`
 `
 
 const MainCard: React.FC = () => {
+    const { collRatio } = useContext(ContractContext);
 
     const [step, setStep] = useState(0);
+    const [sessCollateralRatio, setSessCollateralRatio] = useState(collRatio);
+    const [liquidationPrice, setLiquidationPrice] = useState('146.79');
+
+    //  Effect #1 - Just mocking some liq. price movement
+    useEffect(() => {
+        let amt = Number(liquidationPrice);
+
+        if (collRatio > sessCollateralRatio) {
+            amt = amt + 5;
+        } else {
+            amt = amt - 5;
+        }
+
+        setLiquidationPrice(amt.toFixed().toString());
+        setSessCollateralRatio(collRatio);
+
+    }, [collRatio])
 
     return (
         <Card>
@@ -53,7 +72,7 @@ const MainCard: React.FC = () => {
                 <InputCollateral />
                 <InputSpot />
                 <CollateralArea />
-                <OutputBox text={'Liquidation price'} amount={'146.79'} isTilde={true} />
+                <OutputBox text={'Liquidation price'} amount={liquidationPrice} isTilde={true} />
                 <OutputBox text={'Collateral'} amount={'100.00'} />
                 <TimeLineComponent step={step} />
                 <TxSummary />

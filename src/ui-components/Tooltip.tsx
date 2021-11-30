@@ -34,11 +34,9 @@ const ToolTip: React.FC<Props> = (props) => {
     return (
         <IconWrap>
             <ToolTipIcon />
-            {
-                text && <div className={'tooltip__text'}>
-                    <p>{text} </p>
-                </div>
-            }
+            <div className={'tooltip__text'}>
+                <p>{text ? text : 'Generic tooltip text'} </p>
+            </div>
         </IconWrap>
     );
 }

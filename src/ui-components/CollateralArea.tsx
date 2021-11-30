@@ -1,8 +1,6 @@
-import { useContext } from "react";
 import styled from "styled-components";
 
 import GreenPassIcon from "../assets/svg-icons/GreenPassIcon";
-import { ContractContext } from "../context/ContractContext";
 import ProgressBar from "./ProgressBar";
 
 

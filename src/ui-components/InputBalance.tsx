@@ -66,7 +66,7 @@ const InputBalance: React.FC = () => {
             <InputWithTooltip>
                 <InputTitle>
                     Position Size
-                </InputTitle> <ToolTip text={'Generic tooltip text'} />
+                </InputTitle> <ToolTip />
             </InputWithTooltip>
             <InputWrap>
                 <GrayedArea> oToken Balance: <span style={{ fontSize: 12, fontWeight: 800, float: 'right' }}>{balance}</span> </GrayedArea>

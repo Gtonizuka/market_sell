@@ -50,20 +50,6 @@ const MainCard: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [currentAccount, setCurrentAccount] = useState<SetStateAction<null> | string>(null);
 
-    //  Effect #1 - Just mocking some liq. price movement
-    useEffect(() => {
-        let amt = Number(liquidationPrice);
-
-        if (collRatio > sessCollateralRatio) {
-            amt = amt + 5;
-        } else {
-            amt = amt - 5;
-        }
-
-        setLiquidationPrice(amt.toFixed().toString());
-        setSessCollateralRatio(collRatio);
-
-    }, [collRatio])
 
     // Web3 provider type is buggy, hack as any
     const onConnect = async (provider: any) => {
@@ -81,7 +67,22 @@ const MainCard: React.FC = () => {
         setIsConnected(true);
     }
 
-    // Mock steps progr logic
+    //  Effect #1 - Just mocking some liq. price movement
+    useEffect(() => {
+        let amt = Number(liquidationPrice);
+
+        if (collRatio > sessCollateralRatio) {
+            amt = amt + 5;
+        } else {
+            amt = amt - 5;
+        }
+
+        setLiquidationPrice(amt.toFixed().toString());
+        setSessCollateralRatio(collRatio);
+
+    }, [collRatio])
+
+    // Mock steps  progression button logic
     const handleStep = () => {
         setIsLoading(true);
         setTimeout(

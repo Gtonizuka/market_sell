@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 import ToolTip from '../ui-components/Tooltip';
@@ -98,7 +98,7 @@ const InputSpot: React.FC = () => {
             <InputWithTooltip>
                 <InputTitle>
                     Spot Change
-                </InputTitle> <ToolTip text={'Generic tooltip text'} />
+                </InputTitle> <ToolTip />
             </InputWithTooltip>
             <InputWrap>
                 <div style={{ display: 'flex' }}>

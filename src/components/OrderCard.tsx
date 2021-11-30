@@ -18,7 +18,7 @@ const OrderCard: React.FC = () => {
             <TitleWithTooltip>
                 <SectionTitle>
                     Order Card
-                </SectionTitle> <ToolTip text={'Generic tooltip text'} />
+                </SectionTitle> <ToolTip />
             </TitleWithTooltip>
             <ContractDetails />
             <MainCard />

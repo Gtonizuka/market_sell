@@ -48,6 +48,11 @@ const FormButton: React.FC<Props> = (props) => {
 
         console.log(`Provider is ${provider}`)
 
+        if (!provider) {
+            setIsConnecting(false);
+            return;
+        }
+
         await provider.request({
             method: 'eth_requestAccounts'
         })

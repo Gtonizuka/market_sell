@@ -58,6 +58,7 @@ const TimeLine: React.FC<Props> = (props) => {
                     STEP_DETAILS.map(
                         (step, i) => {
                             const isCurrentStep = i === props.step;
+
                             return (
                                 <ListItem className={`${isCurrentStep ? 'is-active' : null}`}>
                                     <span> {isCurrentStep ? <SwitcherIconBlack /> : <SwitcherIcon />} </span>

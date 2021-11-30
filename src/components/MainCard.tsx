@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { SetStateAction, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ContractContext } from '../context/ContractContext';
+import Web3 from 'web3';
 
+import { ContractContext } from '../context/ContractContext';
 import CollateralArea from '../ui-components/CollateralArea';
 import InputBalance from '../ui-components/InputBalance';
 import InputCollateral from '../ui-components/InputCollateral';
@@ -45,6 +46,9 @@ const MainCard: React.FC = () => {
     const [step, setStep] = useState(0);
     const [sessCollateralRatio, setSessCollateralRatio] = useState(collRatio);
     const [liquidationPrice, setLiquidationPrice] = useState('146.79');
+    const [isConnected, setIsConnected] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [currentAccount, setCurrentAccount] = useState<SetStateAction<null> | string>(null);
 
     //  Effect #1 - Just mocking some liq. price movement
     useEffect(() => {
@@ -60,6 +64,33 @@ const MainCard: React.FC = () => {
         setSessCollateralRatio(collRatio);
 
     }, [collRatio])
+
+    // Web3 provider type is buggy, hack as any
+    const onConnect = async (provider: any) => {
+        const web3 = new Web3(provider);
+        const accounts = await web3.eth.getAccounts()
+
+        // Check if MM is connected
+        if (accounts.length === 0) {
+            // TODO: have below as an alert
+            console.log('Please connect MM');
+            return;
+        } else if (accounts[0] !== currentAccount) {
+            setCurrentAccount(accounts[0])
+        }
+        setIsConnected(true);
+    }
+
+    // Mock steps progr logic
+    const handleStep = () => {
+        setIsLoading(true);
+        setTimeout(
+            () => {
+                setStep(step + 1)
+                setIsLoading(false);
+            }, 2000
+        )
+    }
 
     return (
         <Card>
@@ -77,7 +108,7 @@ const MainCard: React.FC = () => {
                 <TimeLineComponent step={step} />
                 <TxSummary />
             </div>
-            <FormButton step={step} />
+            <FormButton step={step} onConnectHandler={onConnect} isConnected={isConnected} handleStepProg={handleStep} isFormLoading={isLoading} />
         </Card>
     );
 }

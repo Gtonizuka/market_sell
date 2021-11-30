@@ -55,6 +55,11 @@ const ButtonEl = styled.button`
         width: 100%;
     }
 
+    &.is-disabled {
+        opacity: 0.3;  
+        pointer-events: none;
+    }
+
 `
 
 const BtnMain: React.FC<Props> = (props) => {

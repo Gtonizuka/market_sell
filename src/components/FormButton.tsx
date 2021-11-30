@@ -3,6 +3,15 @@ import BtnMain from '../ui-components/Btn';
 
 interface Props {
     step: number
+    onConnectHandler: (provider: Window) => void
+    isConnected: boolean
+    handleStepProg: () => void
+    isFormLoading: boolean
+}
+
+interface GreenBtnProps {
+    stepNr: number
+    text: string
 }
 
 declare const window: Window &
@@ -13,7 +22,7 @@ declare const window: Window &
 
 const FormButton: React.FC<Props> = (props) => {
 
-    const { step } = props;
+    const { step, onConnectHandler, handleStepProg, isFormLoading, isConnected } = props;
 
     const [isConnecting, setIsConnecting] = useState(false);
 
@@ -42,27 +51,41 @@ const FormButton: React.FC<Props> = (props) => {
         await provider.request({
             method: 'eth_requestAccounts'
         })
-
         // setIsConnecting(false);
+        onConnectHandler(provider);
+    }
+
+    const GreenBtn: React.FC<GreenBtnProps> = (props) => {
+        const { stepNr, text } = props;
+
+        return (
+            <BtnMain
+                text={`${isFormLoading ? `Submitting..` : text}`}
+                onClick={handleStepProg}
+                className={`form-btn green-bg ${isFormLoading && step === stepNr ? 'is-disabled' : null}`}
+            />
+        )
     }
 
     return (
 
         <>
             {
-                step === 0 && <BtnMain onClick={loginHandler} text={`${isConnecting ? 'Connecting...' : 'Connect to MetaMask'}`} className={'form-btn orange-bg'} />
-            }
-            {
-                step === 1 && <BtnMain text={'ENABLE WETH WRAPPER'} className={'form-btn green-bg'} />
-            }
-            {
-                step === 2 && <BtnMain text={'APPROVE COLLATERAL'} className={'form-btn green-bg'} />
-            }
-            {
-                step === 3 && <BtnMain text={'PERMIT OTOKEN'} className={'form-btn green-bg'} />
-            }
-            {
-                step === 4 && <BtnMain text={'Submit Trade'} className={'form-btn green-bg'} />
+                !isConnected ? <BtnMain onClick={loginHandler} text={`${isConnecting ? 'Connecting...' : 'Connect to MetaMask'}`} className={'form-btn orange-bg'} />
+                    : <>
+                        {
+                            step === 0 && <GreenBtn stepNr={step} text={'ENABLE WETH WRAPPER'} />
+                        }
+                        {
+                            step === 1 && <GreenBtn stepNr={step} text={'APPROVE COLLATERAL'} />
+                        }
+                        {
+                            step === 2 && <GreenBtn stepNr={step} text={'PERMIT OTOKEN'} />
+                        }
+                        {
+                            step === 3 && <GreenBtn stepNr={step} text={'Submit Trade'} />
+                        }
+                    </>
             }
         </>
 

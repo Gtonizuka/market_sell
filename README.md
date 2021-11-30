@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# Market sell card prototype
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
+To launch run
+### `yarn && yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Data
 
-### `yarn test`
+The app is using mocked data.
+My reasoning  behind  the data structure was to have a option contract with side, contract name, date etc. and a different object that handles the transaction itself. 
+The `contract` object is completely self contained and only contains data about the `contract` itself (and maybe top bid/ask).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For simplicity I didn't store the `contract` data in a context obj(I did that for the `transaction`data).
 
-### `yarn build`
+The `contract` interface looks as such:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+    assetName: string;
+    assetDate: string;
+    side: 'PUT' | 'CALL';
+    price: string;
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Where `assetName` is the main asset the contract is trading on. Other contract metadata from that interface should be pretty self explanatory.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+The `transaction` interface look like:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+``` 
+    underlying_asset: 'USDC' | 'ETH'
+    transaction_asset: 'ETH'
+    cost: string
+    impact: string
+    fee: string
+    collateral: string
+    total: string
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ `transaction_asset` represents what the network gas fee is paid on and the rest is just generic metadata about the current transaction. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Metamask
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Any `chainId`can be used to connect to MM. App is not handling disconnecting, `chainId` switching etc. as it was out of scope for this exercise. 
+Only a simple MM network connection. 
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Animations
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+I didn't add any logic behind the change in position size. Just to have some dynamic visualization I added Liquidation price change (just a random +5/-5)  on Collateralization ratio changes. Also  the progression bar moves to the right/left depending on Collateralization ratio too.
+
+The TX Action timeline and main button changes according to design.
+
+The app also have buttons hover state and working tooltips.
+
+## Input Validation
+
+I added some basic input validations to  Position size, Collateralization Ratio and Spot Change.
+
+
+## File orgs
+
+I just follow the common `react` best practices in terms of file organizations. 
+
+
+## TODO
+
+- Input validation
+- File restructuring (move MM provider to top layer etc.)
+- Theme
+- MM error handling

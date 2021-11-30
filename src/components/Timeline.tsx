@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import CheckMarkIcon from '../assets/svg-icons/CheckMarkIcon';
+import CheckMarkIconBlack from '../assets/svg-icons/CheckMarkIconBlack';
 import SwitcherIcon from '../assets/svg-icons/Switcher';
 import SwitcherIconBlack from '../assets/svg-icons/SwitcherBlack';
 import ToolTip from '../ui-components/Tooltip';
@@ -37,15 +39,15 @@ const ListItem = styled.li`
     display: flex;
     justify-content: space-around;
 
-    &.is-active {
-        color: #292535;
-        font-weight: 500;
-        text-decoration: underline;
-    }
-
     .text-content {
+        color: #77757E;  
         margin-left: 5px;
         max-width: 75%;
+        &.is-active {
+            color: #292535;
+            font-weight: 500;
+            text-decoration: underline;
+        }
     }
 `
 
@@ -61,7 +63,13 @@ const TimeLine: React.FC<Props> = (props) => {
 
                             return (
                                 <ListItem className={`${isCurrentStep ? 'is-active' : null}`}>
-                                    <span> {isCurrentStep ? <SwitcherIconBlack /> : <SwitcherIcon />} </span>
+                                    {
+                                        i === 3 && <span> {isCurrentStep ? <CheckMarkIconBlack /> : <CheckMarkIcon />}</span>
+                                    }
+                                    {
+                                        i !== 3 && <span> {isCurrentStep ? <SwitcherIconBlack /> : <SwitcherIcon />} </span>
+
+                                    }
                                     <span className={'text-content'}>{step}</span>
                                     <ToolTip />
                                 </ListItem>

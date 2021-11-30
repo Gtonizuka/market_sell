@@ -1,7 +1,15 @@
 import styled from 'styled-components';
+import ArrowsIcon from '../assets/svg-icons/ArrowsIcon';
 import ToolTipIcon from '../assets/svg-icons/TooltipIcon';
 
 import BtnMain from '../ui-components/Btn';
+
+interface IContract {
+    assetName: string;
+    assetDate: string;
+    side: 'PUT' | 'CALL';
+    price: string;
+}
 
 const Card = styled.div`
     box-shadow: 0px 4px 10px rgba(222, 222, 222, 0.5);
@@ -33,13 +41,10 @@ const ContentUnderlined = styled.span`
     text-decoration: underline;
 `
 
-interface IContract {
-    assetName: string;
-    assetDate: string;
-    side: 'PUT' | 'CALL';
-    price: string;
-}
-
+const FlexContainer = styled.div`
+    display: flex;
+    align-items: center;
+    `
 
 const ContractDetails: React.FC = () => {
 
@@ -60,9 +65,9 @@ const ContractDetails: React.FC = () => {
             <div>
                 <p><ContentLG>{MOCK_CONTRACT.assetName}</ContentLG><ContentLight>{MOCK_CONTRACT.assetDate}</ContentLight></p>
             </div>
-            <div>
-                <p>{MOCK_CONTRACT.side} -- ${MOCK_CONTRACT.price} STRIKE</p>
-            </div>
+            <FlexContainer>
+                <span style={{ marginRight: 5 }}><ArrowsIcon /></span><p>{MOCK_CONTRACT.side} -- ${MOCK_CONTRACT.price} STRIKE</p>
+            </FlexContainer>
             <div style={{ display: 'flex' }}>
                 <div style={{ marginRight: 5 }}>
                     <ToolTipIcon />
